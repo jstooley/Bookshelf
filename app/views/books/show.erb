@@ -3,6 +3,5 @@
   <h3>Title: <%=book.title%></h3>
   <p>Publication Date:<%=book.year_published%></p>
   <p>Author: <%=Author.find_by(id: book.author_id).name%></p>
-  <p>Genre: <%=Genre.find_by(id: book.genre_id).name%></p>
 </div>
 <%end%>
