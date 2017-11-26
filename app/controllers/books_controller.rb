@@ -9,8 +9,15 @@ class BooksController < ApplicationController
   end
 
   get '/books/list' do
-
     erb :'books/show'
+  end
+
+  get 'books/remove' do
+    if logged_in?
+      erb :'books/remove_book'
+    else
+      redirect to '/login'
+    end
   end
 
   get '/books/edit' do

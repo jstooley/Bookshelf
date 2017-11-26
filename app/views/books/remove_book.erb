@@ -1,0 +1,13 @@
+<h1>Book Removal</h1>
+<p>Which book do you want to Remove?</p>
+<%Book.all.each do |book|%>
+  <%UserBook.all.each do |user_books|%>
+    <%if user_books.book_id == book.id && user_books.user_id == @user.id%>
+    <form>
+      <p>Title: <%=book.title%></p>
+      <p>Author: <%=Author.find_by(id: book.author_id).name%></p>
+      <p>Author: <%=Genre.find_by(id: book.genre_id).name%></p>
+    </form>
+      <%end%>
+  <%end%>
+<%end%>
