@@ -17,6 +17,7 @@ class BooksController < ApplicationController
     @book.genre = @genre
     @book.save
     @author.new_book
+    UserBook.find_or_create_by(user_id: session['user_id'],book_id: @book.id)
     redirect to '/show'
   end
 
