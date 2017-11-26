@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   get '/login' do
 
     if logged_in?
-      redirect to ''
+      redirect to '/show'
     else
       erb :'users/login'
     end
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   get '/signup' do
 
     if logged_in?
-      redirect to ""
+      redirect to "/show"
     else
       erb :'users/signup'
     end
