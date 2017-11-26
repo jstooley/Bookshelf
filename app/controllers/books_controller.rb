@@ -42,6 +42,21 @@ class BooksController < ApplicationController
 
   post '/books/:id/edit' do
     @book = Book.find_by(id: params['id'])
+    @book.title = params['title']
+    @book.year_published = params['year_published']
+    @arthor_org = Author.find_by(id: @book.author_id)
+    @arthor_new = Author.find_or_create_by(name: params['author'])
+    unless @arthor_org == @arthor_new
+      @arthor_org.published_work -= 1
+      @arthor_new.new_book
+      @book.author = @arthor_new
+    end
+    @genre_org = Genre.find_by(id: @book.genre_id)
+    @genre_new = Genre.find_or_create_by(name: params['genre'])
+    unless @genre_org == @genre_new
+      @book.genre = @genre_new
+    end
+    @book.save
     binding.pry
     redirect to '/show'
   end
