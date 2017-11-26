@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       @user = User.find_by(id: session[:user_id])
       erb:'users/show'
     else
-      redirect to '/'
+      redirect to '/login'
     end
   end
 

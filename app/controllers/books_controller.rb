@@ -1,7 +1,11 @@
 class BooksController < ApplicationController
 
   get '/books/new' do
-    erb :'books/new'
+    if logged_in?
+      erb :'books/new'
+    else
+      redirect to '/login'
+    end
   end
 
   post '/books/new' do
@@ -13,7 +17,6 @@ class BooksController < ApplicationController
     @book.genre = @genre
     @book.save
     @author.new_book
-    binding.pry
     redirect to '/show'
   end
 
