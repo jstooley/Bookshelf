@@ -8,9 +8,9 @@ class BooksController < ApplicationController
     end
   end
 
-  get 'books/edit' do
+  get '/books/edit' do
     if logged_in?
-      @user = User.find_by(id: session['id'])
+      @user = User.find_by(id: session['user_id'])
       erb :'books/choose_edit'
     else
       redirect to '/login'

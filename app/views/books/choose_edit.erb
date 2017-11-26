@@ -3,7 +3,7 @@
 <%Book.all.each do |book|%>
   <%UserBook.all.each do |user_books|%>
     <%if user_books.book_id == book.id && user_books.user_id == @user.id%>
-      <a href="/books/<%=book.id%>/edit"><%=book.title%></a>
+      <p>Title: <a href="/books/<%=book.id%>/edit"><%=book.title%></a></p>
       <%end%>
   <%end%>
 <%end%>
