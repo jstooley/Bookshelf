@@ -4,7 +4,7 @@
     <title>Bookshelf</title>
   </head>
   <body>
-    <%if !!session[:user_id]%>
+    <%if logged_in?%>
       <a href = '/show'>Home</a>
       <a href = '/books/new'>Add Book</a>
       <a href = '/books/edit'>Edit Book</a>
