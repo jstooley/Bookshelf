@@ -4,8 +4,8 @@ class AuthorsController < ApplicationController
       erb :'authors/show'
   end
 
-  
-  get '/authors/:id/show' do
+
+  get '/authors/:id' do
     @author = Author.find_by(id: params['id'])
     if logged_in?
       @user = User.find_by(id: session['user_id'])
