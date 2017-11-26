@@ -1,8 +1,13 @@
-require './config/environment'
+
 
 class ApplicationController < Sinatra::Base
 
+
+
+
   configure do
+    register Sinatra::ActiveRecordExtension
+    set :views, Proc.new { File.join(root, "../views/") }
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions
