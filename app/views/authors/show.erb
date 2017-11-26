@@ -1,5 +1,15 @@
 <h1>Author List</h1>
 <%Author.all.each do |author|%>
   <h4>Name: <%=author.name%></h4>
-  <p><a href = ''>Number of works: <%=author.published_work%></a></p>
+  <p><a href = '/authours/<%=author.id%>/show'>Number of works: <%=author.published_work%></a></p>
+  
+  <%if logged_in? && UserBook.find_by(user_id: @user.id, book_id: book.id) == nil%>
+
+  <form>
+    <p>Add this book to your colection?</p>
+    <input type=submit value='Add'>
+  </form>
+
+  <%end%>
+
 <%end%>
