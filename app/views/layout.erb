@@ -4,6 +4,11 @@
     <title>Bookshelf</title>
   </head>
   <body>
+    <%if !!session[:user_id]%>
+      <a href = '/show'>Home</a>
+    <%else%>
+      <a href = '/'>Home</a>
+    <%end%>
     <%= yield %>
   </body>
 </html>
