@@ -21,6 +21,11 @@ class UsersController < ApplicationController
 
   end
 
+  get '/logout' do
+      session['user_id'].clear
+      redirect to '/'
+  end
+
   get '/show' do
     if logged_in?
       @user = User.find_by(id: session[:user_id])
