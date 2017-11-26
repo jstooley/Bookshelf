@@ -48,6 +48,7 @@ class BooksController < ApplicationController
     @arthor_new = Author.find_or_create_by(name: params['author'])
     unless @arthor_org == @arthor_new
       @arthor_org.published_work -= 1
+      @arthor_org.save
       @arthor_new.new_book
       @book.author = @arthor_new
     end
@@ -57,7 +58,6 @@ class BooksController < ApplicationController
       @book.genre = @genre_new
     end
     @book.save
-    binding.pry
     redirect to '/show'
   end
 
