@@ -4,6 +4,7 @@ class AuthorsController < ApplicationController
       erb :'authors/show'
   end
 
+  
   get '/authors/:id/show' do
     @author = Author.find_by(id: params['id'])
     if logged_in?
