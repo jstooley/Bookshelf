@@ -73,5 +73,10 @@ class BooksController < ApplicationController
     redirect to '/show'
   end
 
+  post '/books/:id/remove' do
+    UserBook.find_by(id: params['id']).delete
+    redirect to '/show'
+  end
+
 
 end
