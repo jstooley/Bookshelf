@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20171126000739) do
     t.string "title"
     t.integer "year_published"
     t.integer "author_id"
-    t.integer "henre_id"
+    t.integer "genre_id"
   end
 
   create_table "genres", force: :cascade do |t|
