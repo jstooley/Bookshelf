@@ -3,7 +3,6 @@ class Author < ActiveRecord::Base
   has_many :genres, through: :books
 
   def new_book
-
     if self.published_work
       self.published_work +=1
     else
