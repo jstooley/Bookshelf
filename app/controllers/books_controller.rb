@@ -53,6 +53,11 @@ class BooksController < ApplicationController
     redirect to '/show'
   end
 
+  post 'books/:id/add' do
+    @book = Book.find_by(id: params['id'])
+    UserBook.find_or_create_by(user_id: session['user_id'], book_id: params['id'])
+  end
+  
   post '/books/:id/edit' do
     @book = Book.find_by(id: params['id'])
     @book.title = params['title']
