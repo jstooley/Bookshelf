@@ -6,7 +6,7 @@
     <form>
       <p>Title: <%=book.title%></p>
       <p>Author: <%=Author.find_by(id: book.author_id).name%></p>
-      <p>Author: <%=Genre.find_by(id: book.genre_id).name%></p>
+      <p>Genre: <%=Genre.find_by(id: book.genre_id).name%></p>
     </form>
       <%end%>
   <%end%>
