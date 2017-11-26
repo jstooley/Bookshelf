@@ -1,0 +1,9 @@
+<h1>Book Edit</h1>
+<p>Which book do you want to edit?</p>
+<%Book.all.each do |book|%>
+  <%UserBook.all.each do |user_books|%>
+    <%if user_books.book_id == book.id && user_books.user_id == @user.id%>
+      <a href="/books/<%=book.id%>/edit"><%=book.title%></a>
+      <%end%>
+  <%end%>
+<%end%>
