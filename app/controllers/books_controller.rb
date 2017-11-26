@@ -9,7 +9,12 @@ class BooksController < ApplicationController
   end
 
   get '/books/list' do
-    erb :'books/show'
+    if logged_in?
+      @user = User.find_by(id: session['user_id'])
+      erb :'books/show'
+    else
+      erb :'books/show'
+    end
   end
 
   get '/books/remove' do
@@ -53,11 +58,12 @@ class BooksController < ApplicationController
     redirect to '/show'
   end
 
-  post 'books/:id/add' do
+  post '/books/:id/add' do
     @book = Book.find_by(id: params['id'])
     UserBook.find_or_create_by(user_id: session['user_id'], book_id: params['id'])
+    redirect to '/show'
   end
-  
+
   post '/books/:id/edit' do
     @book = Book.find_by(id: params['id'])
     @book.title = params['title']
