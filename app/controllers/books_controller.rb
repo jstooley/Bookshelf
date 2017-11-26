@@ -8,6 +8,11 @@ class BooksController < ApplicationController
     end
   end
 
+  get '/books/list' do
+
+    erb :'books/show'
+  end
+
   get '/books/edit' do
     if logged_in?
       @user = User.find_by(id: session['user_id'])
