@@ -5,6 +5,7 @@ class BooksController < ApplicationController
   end
 
   post '/books/new' do
+    binding.pry
     redirect to '/show'
   end
 
