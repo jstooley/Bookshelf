@@ -4,10 +4,11 @@ class Author < ActiveRecord::Base
 
   def new_book
 
-    if self.year_published
-      self.year_published +=1
+    if self.published_work
+      self.published_work +=1
     else
-      self.year_published = 1
+      self.published_work = 1
     end
     self.save
+  end
 end
