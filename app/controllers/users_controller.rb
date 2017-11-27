@@ -49,16 +49,25 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
+    if User.find_by(username: params[:username]) #check is usernmae is in use
+      @username_error = true
+    end
+    if User.find_by(email: params[:email]) #checl if email is in use
+      @email_error = true
+    end
 
-    @user = User.new(:username => params[:username], :password => params[:password], :email => params[:email])
-    @user.save
-
-    if @user.save
-
-      session[:user_id] = @user.id
-      redirect to "/show"
+    if @email_error || @username_error
+      erb :'users/signup'
     else
-      redirect to "/signup"
+      @user = User.new(:username => params[:username], :password => params[:password], :email => params[:email])
+      @user.save
+      if @user.save
+        session[:user_id] = @user.id
+        redirect to "/show"
+      else
+        @save_error = true
+        erb :"users/signup"
+      end
     end
 
   end

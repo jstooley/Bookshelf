@@ -1,4 +1,13 @@
 <h3>Sign Up</h3>
+<%if @username_error%>
+  <p style='color:red;'>Username is already in use.</p>
+<%end%>
+<%if @email_error%>
+  <p style='color:red;'>Email is already in use.</p>
+<%end%>
+<%if @save_error%>
+  <p style='color:red;'>Account save error. Please try again.</p>
+<%end%>
 <form action="/signup" method="POST">
   <input type="text" name="username" placeholder="Username:">
   <input type="text" name="email" placeholder="Email:">
