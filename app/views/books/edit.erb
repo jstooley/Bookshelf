@@ -1,8 +1,8 @@
 <p>Edit here</p>
 <form method ="POST" action ='/books/<%=@book.id%>/edit'>
-  <input type = 'text' name='title' value='<%=@book.title%>'>
-  <input type = 'text' name='year_published' value='<%=@book.year_published%>'>
-  <input type = 'text' name='author' value='<%=Author.find_by(id: @book.author_id).name%>'>
-  <input type = 'text' name='genre' value='<%=Genre.find_by(id: @book.genre_id).name%>'>
+  <input type = 'text' name='title' value='<%=@book.title%>' required>
+  <input type = 'text' name='year_published' value='<%=@book.year_published%>' required>
+  <input type = 'text' name='author' value='<%=Author.find_by(id: @book.author_id).name%>' required>
+  <input type = 'text' name='genre' value='<%=Genre.find_by(id: @book.genre_id).name%>' required>
   <input type='submit' value='Submit'>
 </form>
