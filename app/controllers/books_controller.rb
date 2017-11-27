@@ -87,23 +87,37 @@ class BooksController < ApplicationController
   end
 
   post '/books/:id/remove' do
+
     @user_books = UserBook.find_by(id: params['id'])
     @book = Book.find_by(id: @user_books.book_id)
-    if @book.original_poster == session['user_id']
+    if @book.original_poster == session['user_id'] # is deleter the op?
 
-      UserBook.all.each do |user_book|
+      @genre_count # to see how many books have this genre
+
+      UserBook.all.each do |user_book| #if is op delete book of all list
         if user_book.book_id == @book.id
           user_book.delete
         end
       end
+
+      Book.all.each do |book| # counts how many books have the genre of soon to be deleted book
+        if book.genre_id == @book.genre_id
+          @genre_count +=1
+        end
+      end
+      if @genre_count == 1
+        Genre.find_by(id: @book.genre_id).delete #delete genre if this book is the obnly one with it
+      end
+
       @author = Author.find_by(id: @book.author_id)
       @author.published_work -= 1
-      if @author.published_work == 0
-        @author.delete
+      if @author.published_work == 0 # authors only book?
+        @author.delete # if so delete
       end
-      @book.delete
+
+      @book.delete # delete the book op is removing
     else
-      @user_books.delete
+      @user_books.delete # if not op just take off list
     end
     redirect to '/show'
   end
