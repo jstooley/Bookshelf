@@ -92,7 +92,7 @@ class BooksController < ApplicationController
     @book = Book.find_by(id: @user_books.book_id)
     if @book.original_poster == session['user_id'] # is deleter the op?
 
-      @genre_count # to see how many books have this genre
+      @genre_count = 0# to see how many books have this genre
 
       UserBook.all.each do |user_book| #if is op delete book of all list
         if user_book.book_id == @book.id
@@ -102,7 +102,7 @@ class BooksController < ApplicationController
 
       Book.all.each do |book| # counts how many books have the genre of soon to be deleted book
         if book.genre_id == @book.genre_id
-          @genre_count +=1
+          @genre_count += 1
         end
       end
       if @genre_count == 1
