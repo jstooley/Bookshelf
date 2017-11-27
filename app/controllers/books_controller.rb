@@ -84,11 +84,11 @@ class BooksController < ApplicationController
     @genre_new = Genre.find_or_create_by(name: params['genre'])
     unless @genre_org == @genre_new #check if genre changed
       @book.genre = @genre_new
-      if Book.find_by(genre_id: @genre_org.id) == nil #checks books to see if any have old genre if not deltes them
-        @genre_org.delete
-      end
     end
     @book.save
+    if Book.find_by(genre_id: @genre_org.id) == nil #checks books to see if any have old genre if not deltes them
+      @genre_org.delete
+    end
     redirect to '/show'
   end
 
