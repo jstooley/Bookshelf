@@ -5,6 +5,7 @@ class CreateBooks < ActiveRecord::Migration[5.1]
       t.integer :year_published
       t.integer :author_id
       t.integer :genre_id
+      t.integer :original_poster
     end
   end
 end
