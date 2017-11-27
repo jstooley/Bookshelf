@@ -96,6 +96,11 @@ class BooksController < ApplicationController
           user_book.delete
         end
       end
+      @author = Author.find_by(id: @book.author_id)
+      @author.published_work -= 1
+      if @author.published_work == 0
+        @author.delete
+      end
       @book.delete
     else
       @user_books.delete
