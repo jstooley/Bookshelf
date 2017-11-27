@@ -87,7 +87,19 @@ class BooksController < ApplicationController
   end
 
   post '/books/:id/remove' do
-    UserBook.find_by(id: params['id']).delete
+    @user_books = UserBook.find_by(id: params['id'])
+    @book = Book.find_by(id: @user_books.book_id)
+    if @book.original_poster == session['user_id']
+
+      UserBook.all.each do |user_book|
+        if user_book.book_id == @book.id
+          user_book.delete
+        end
+      end
+      @book.delete
+    else
+      @user_books.delete
+    end
     redirect to '/show'
   end
 
