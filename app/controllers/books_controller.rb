@@ -52,6 +52,7 @@ class BooksController < ApplicationController
     @author = Author.find_or_create_by(name: params['author'])
     @book.author = @author
     @book.genre = @genre
+    @book.original_poster = session['user_id']
     @book.save
     @author.new_book
     UserBook.find_or_create_by(user_id: session['user_id'],book_id: @book.id)
