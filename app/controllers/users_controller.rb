@@ -42,7 +42,8 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect to '/show'
     else
-      redirect to "/login"
+      @error = true
+      erb :"users/login"
     end
 
   end
