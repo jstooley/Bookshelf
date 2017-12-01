@@ -138,4 +138,5 @@ end
 # 2. Add the DELETE /books/:id/remove route with logic to remove a book from a user's book collection
 # 3. Clean up the DELETE /books/:id route to only handle deletion for verified user
 # 4. Implement the option to Add or Remove books (and delete edit for original posters) for your collection from the author books and genre books index pages
-# 5. User the current_user instance method for your controllers and views. 
+# 5. User the current_user instance method for your controllers and views.
+# 6. Make a pull request with the changes on a seperate github branch and @lukeghenco when submitting pull request. Do not merge into master branch until review is completed by Luke
