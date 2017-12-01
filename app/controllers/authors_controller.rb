@@ -7,7 +7,7 @@ class AuthorsController < ApplicationController
 
 
   get '/authors/:id' do
-    @authors = Author.all
+    @author = Author.find_by(id: params[:id])
     erb :'authors/show'
   end
 end

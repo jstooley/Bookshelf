@@ -94,6 +94,7 @@ class BooksController < ApplicationController
   end
 
   delete '/books/:id/remove' do
+  end
 
   delete '/books/:id' do
 
@@ -107,7 +108,7 @@ class BooksController < ApplicationController
         if user_book.book_id == @book.id
           user_book.delete
         end
-      end
+    end
 
       Book.all.each do |book| # counts how many books have the genre of soon to be deleted book
         if book.genre_id == @book.genre_id
