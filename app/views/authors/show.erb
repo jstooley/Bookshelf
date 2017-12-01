@@ -1,17 +1,15 @@
-<h1><%=@author.name%>'s Book List</h1>
-<%Book.all.each do |book|%>
-  <%if book.author_id == @author.id%>
-  <h3>Title: <%=book.title%></h3>
-  <p>Publication Date:<%=book.year_published%></p>
-  <p>Genre: <%=Genre.find_by(id: book.genre_id).name%></p>
+<h1><%= @author.name %>'s Book List</h1>
+<% @author.books.each do |book| %>
+  <h3>Title: <%= book.title%></h3>
+  <p>Publication Date:<%= book.year_published %></p>
+  <p>Genre: <%= book.genre.name %></p>
 
-  <%if logged_in? && UserBook.find_by(user_id: @user.id, book_id: book.id) == nil%>
+  <%if book.users.include?(current_user) %>
 
   <form method='POST' action='/books/<%=book.id%>/add'>
     <p>Add this book to your colection?</p>
     <input type=submit value='Add'>
   </form>
 
-  <%end%>
   <%end%>
 <%end%>
