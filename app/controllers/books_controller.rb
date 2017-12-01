@@ -89,38 +89,35 @@ class BooksController < ApplicationController
   end
 
   delete '/books/:id/remove' do
-    UserBook.find_by(id: params['id']).delete # if not op just take off list
+    UserBook.find_by(id: params[:id]).delete # if not op just take off list
   end
 
   delete '/books/:id' do
 
-    @user_books = UserBook.find_by(id: params['id'])
+    @user_books = UserBook.find_by(id: params[:id])
     @book = Book.find_by(id: @user_books.book_id)
+    @genre_count = 0# to see how many books have this genre
 
-      @genre_count = 0# to see how many books have this genre
-
-      UserBook.all.each do |user_book| #if is op delete book of all list
-        if user_book.book_id == @book.id
-          user_book.delete
-        end
+    UserBook.all.each do |user_book| #delete book off all list
+      if user_book.book_id == @book.id
+        user_book.delete
+      end
     end
 
-      Book.all.each do |book| # counts how many books have the genre of soon to be deleted book
-        if book.genre_id == @book.genre_id
-          @genre_count += 1
-        end
-      end
-      if @genre_count == 1
-        Genre.find_by(id: @book.genre_id).delete #delete genre if this book is the obnly one with it
-      end
+    @genre_id = @book.genre.id #to have genre_id after book is deleted
+    @author_id = @book.author.id #to have genre_id after book is deleted
+    @book.delete # delete the book op is removing
 
-      @author = Author.find_by(id: @book.author_id)
+    if Book.all.include?(@genre_id)  # counts how many books have the genre of soon to be deleted book
+      Genre.find_by(id: @genre_id).delete #delete genre if the deleted book is the obnly one with it
+    end
+
+      @author = Author.find_by(id: @author_id)
       @author.published_work -= 1
       if @author.published_work == 0 # authors only book?
         @author.delete # if so delete
       end
 
-      @book.delete # delete the book op is removing
     redirect to '/show'
   end
 end
