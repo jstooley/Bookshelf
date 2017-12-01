@@ -89,13 +89,13 @@ class BooksController < ApplicationController
   end
 
   delete '/books/:id/remove' do
+    @user_books.delete # if not op just take off list
   end
 
   delete '/books/:id' do
 
     @user_books = UserBook.find_by(id: params['id'])
     @book = Book.find_by(id: @user_books.book_id)
-    if @book.original_poster == session['user_id'] # is deleter the op?
 
       @genre_count = 0# to see how many books have this genre
 
@@ -121,9 +121,6 @@ class BooksController < ApplicationController
       end
 
       @book.delete # delete the book op is removing
-    else
-      @user_books.delete # if not op just take off list
-    end
     redirect to '/show'
   end
 end
