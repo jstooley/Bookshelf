@@ -9,14 +9,13 @@ class BooksController < ApplicationController
   end
 
   get '/books' do
-      @user = User.find_by(id: session['user_id'])
       @books = Book.all
       erb :'books/index'
   end
 
   get '/books/remove' do
     if logged_in?
-        @user = User.find_by(id: session['user_id'])
+      @books = Book.all
       erb :'books/remove_book'
     else
       redirect to '/login'
