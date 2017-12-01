@@ -8,12 +8,13 @@ class BooksController < ApplicationController
     end
   end
 
-  get '/books/list' do
+  get '/books' do
     if logged_in?
       @user = User.find_by(id: session['user_id'])
-      erb :'books/show'
+      @books = Book.all
+      erb :'books/index'
     else
-      erb :'books/show'
+      redirect to '/login'
     end
   end
 
@@ -52,7 +53,7 @@ class BooksController < ApplicationController
     @author = Author.find_or_create_by(name: params['author'])
     @book.author = @author
     @book.genre = @genre
-    @book.original_poster = session['user_id']
+    @book.original_poster = current_user.id
     @book.save
     @author.new_book
     UserBook.find_or_create_by(user_id: session['user_id'],book_id: @book.id)
@@ -65,7 +66,7 @@ class BooksController < ApplicationController
     redirect to '/show'
   end
 
-  post '/books/:id/edit' do
+  put '/books/:id/edit' do
     @book = Book.find_by(id: params['id'])
     @book.title = params['title']
     @book.year_published = params['year_published']
@@ -92,7 +93,9 @@ class BooksController < ApplicationController
     redirect to '/show'
   end
 
-  post '/books/:id/remove' do
+  delete '/books/:id/remove' do
+
+  delete '/books/:id' do
 
     @user_books = UserBook.find_by(id: params['id'])
     @book = Book.find_by(id: @user_books.book_id)
@@ -127,6 +130,12 @@ class BooksController < ApplicationController
     end
     redirect to '/show'
   end
-
-
 end
+
+# Todos
+
+# 1. check for an authenticated user on all routes that reuqire an authenticated user not just 'GET' routes
+# 2. Add the DELETE /books/:id/remove route with logic to remove a book from a user's book collection
+# 3. Clean up the DELETE /books/:id route to only handle deletion for verified user
+# 4. Implement the option to Add or Remove books (and delete edit for original posters) for your collection from the author books and genre books index pages
+# 5. User the current_user instance method for your controllers and views. 

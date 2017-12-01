@@ -1,0 +1,29 @@
+<h1>Books List</h1>
+<% @books.each do |book|  %>
+  <div class='book'>
+    <h3>Title: <%= book.title %></h3>
+    <p>Publication Date: <%= book.year_published %></p>
+    <p>Author: <%= book.author.name %></p>
+    <p>Genre: <%= book.genre.name %></p>
+  </div>
+  <% if book.users.include?(current_user) %>
+    <form method="POST" action="/books/<%= book.id %>/remove">
+      <p>Remove this book From your colection?</p>
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value='Remove'>
+    </form>
+  <% else %>
+    <form method='POST' action='/books/<%= book.id %>/add'>
+      <p>Add this book to your colection?</p>
+      <input type="submit" value='Add'>
+    </form>
+  <% end %>
+
+  <% if book.original_poster == current_user.id %>
+    <a href = 'books/<%=book.id%>/edit'>Edit Book</a>
+    <form method='POST' action ='books/<%=book.id%>'>
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value='Delete'>
+    </form>
+  <% end %>
+<% end %>

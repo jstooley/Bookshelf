@@ -7,15 +7,13 @@
     <%if logged_in?%>
       <a href = '/show'>Home</a>
       <a href = '/books/new'>Add Book</a>
-      <a href = '/books/edit'>Edit Book</a>
-      <a href = '/books/remove'>Remove Book</a>
       <a href = '/logout' style="float:right">Logout</a>
     <%else%>
       <a href = '/'>Home</a>
     <%end%>
-    <a href = '/books/list'>Book List</a>
-    <a href = '/authors/list'>Author List</a>
-    <a href = '/genres/list'>Genres List</a>
+    <a href = '/books'>Book List</a>
+    <a href = '/authors'>Author List</a>
+    <a href = '/genres'>Genres List</a>
     <%= yield %>
   </body>
 </html>

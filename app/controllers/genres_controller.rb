@@ -1,18 +1,15 @@
 class GenresController < ApplicationController
 
-  get '/genres/list' do
-    erb :'genres/show'
+  get '/genres' do
+    erb :'genres/index'
   end
 
   get '/genres/:id' do
-
-    @genre = Genre.find_by(id: params['id'])
-
     if logged_in?
-      @user = User.find_by(id: session[:user_id])
-      erb :'genres/show_books'
+      @genre = Genre.find_by(id: params['id'])
+      erb :'genres/show'
     else
-      erb :'genres/show_books'
+      redirect to '/login'
     end
   end
 

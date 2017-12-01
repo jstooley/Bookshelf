@@ -1,7 +1,7 @@
 class AuthorsController < ApplicationController
 
-  get '/authors/list' do
-      erb :'authors/show'
+  get '/authors' do
+      erb :'authors/index'
   end
 
 
@@ -9,9 +9,9 @@ class AuthorsController < ApplicationController
     @author = Author.find_by(id: params['id'])
     if logged_in?
       @user = User.find_by(id: session['user_id'])
-      erb :'authors/show_books'
+      erb :'authors/show'
     else
-      erb :'authors/show_books'
+      erb :'authors/show'
     end
   end
 
