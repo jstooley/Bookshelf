@@ -89,7 +89,7 @@ class BooksController < ApplicationController
   end
 
   delete '/books/:id/remove' do
-    @user_books.delete # if not op just take off list
+    UserBook.find_by(id: params['id']).delete # if not op just take off list
   end
 
   delete '/books/:id' do
