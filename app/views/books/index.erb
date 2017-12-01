@@ -12,14 +12,14 @@
       <input type="hidden" name="_method" value="DELETE">
       <input type="submit" value='Remove'>
     </form>
-  <% else %>
+  <% elsif logged_in? %>
     <form method='POST' action='/books/<%= book.id %>/add'>
       <p>Add this book to your colection?</p>
       <input type="submit" value='Add'>
     </form>
   <% end %>
 
-  <% if book.original_poster == current_user.id %>
+  <% if book.original_poster == current_user %>
     <a href = 'books/<%=book.id%>/edit'>Edit Book</a>
     <form method='POST' action ='books/<%=book.id%>'>
       <input type="hidden" name="_method" value="DELETE">

@@ -10,4 +10,5 @@ class AuthorsController < ApplicationController
     @author = Author.find_by(id: params[:id])
     erb :'authors/show'
   end
+  
 end
