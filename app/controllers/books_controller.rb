@@ -81,7 +81,7 @@ class BooksController < ApplicationController
 
   delete '/books/:id' do
     if logged_in?
-      @user_books = UserBook.find_by(id: params[:id])
+      @user_books = UserBook.find_by(book_id: params[:id],user_id: current_user.id)
       @book = Book.find_by(id: @user_books.book_id)
       @genre_count = 0# to see how many books have this genre
 
@@ -91,7 +91,7 @@ class BooksController < ApplicationController
       @author_id = @book.author.id #to have genre_id after book is deleted
       @book.delete # delete the book op is removing
 
-      if Book.all.include?(@genre_id)  # counts how many books have the genre of soon to be deleted book
+      if !Book.all.include?(@genre_id)  # counts how many books have the genre of soon to be deleted book
         Genre.find_by(id: @genre_id).delete #delete genre if the deleted book is the obnly one with it
       end
 
@@ -100,7 +100,6 @@ class BooksController < ApplicationController
         if @author.published_work == 0 # authors only book?
           @author.delete # if so delete
         end
-        binding.pry
         redirect to '/show'
       else
         redirect to '/login'
