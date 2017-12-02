@@ -13,15 +13,6 @@ class BooksController < ApplicationController
       erb :'books/index'
   end
 
-  get '/books/remove' do
-    if logged_in?
-      @books = Book.all
-      erb :'books/remove_book'
-    else
-      redirect to '/login'
-    end
-  end
-
   get '/books/:id/edit' do
 
     if logged_in?
