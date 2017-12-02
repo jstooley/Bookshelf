@@ -20,6 +20,7 @@
   <% end %>
 
   <% if book.original_poster == current_user.id %>
+  <p>Edit this book?</p>
     <a href = 'books/<%=book.id%>/edit'>Edit Book</a>
     <form method='POST' action ='books/<%=book.id%>'>
       <input type="hidden" name="_method" value="DELETE">
