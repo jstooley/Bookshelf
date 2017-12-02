@@ -57,19 +57,12 @@ class BooksController < ApplicationController
       @author_org = @book.author
       @author_new = Author.find_or_create_by(name: params['author'])
 
-      @book.author_edit(@author_org,@author_new) #checks/sets if author is changed
+      @book.author_edit(@author_org,@author_new) #checks/sets if author is changed then saves
 
       @genre_org = @book.genre
       @genre_new = Genre.find_or_create_by(name: params['genre'])
-      unless @genre_org == @genre_new #check if genre changed
-        @book.genre = @genre_new
-      end
 
-      @book.save
-
-      if !!Book.find_by(genre_id: @genre_org.id) #checks books to see if any have old genre if not deltes them
-        @genre_org.delete
-      end
+      @book.genre_edit(@genre_org,@genre_new)#checks/sets if genre is changed then saves
 
       redirect to '/show'
     else

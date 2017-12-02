@@ -13,6 +13,17 @@ class Book < ActiveRecord::Base
       if author_org.published_work == 0 #delete author if no longer has book
         author_org.delete
       end
+      self.save
+    end
+  end
+
+  def genre_edit(genre_org,genre_new)
+    unless genre_org == genre_new #check if genre changed
+      self.genre = genre_new
+      self.save
+      if !Book.find_by(genre_id: genre_org.id) #checks books to see if any have old genre if not deltes them
+        @genre_org.delete
+      end
     end
   end
 
