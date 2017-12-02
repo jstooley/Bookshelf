@@ -4,7 +4,7 @@
   <p>Publication Date:<%= book.year_published %></p>
   <p>Genre: <%= book.genre.name %></p>
 
-  <% if book.users.include?(current_user) %>
+  <% if book.users.include?(current_user.id) %>
     <form method="POST" action="/books/<%= book.id %>/remove">
       <p>Remove this book From your colection?</p>
       <input type="hidden" name="_method" value="DELETE">
@@ -17,7 +17,7 @@
     </form>
   <% end %>
 
-  <% if book.original_poster == current_user %>
+  <% if book.original_poster == current_user.id %>
     <a href = 'books/<%=book.id%>/edit'>Edit Book</a>
     <form method='POST' action ='books/<%=book.id%>'>
       <p>Delete this book from the database?</p>

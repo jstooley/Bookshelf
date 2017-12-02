@@ -32,7 +32,7 @@ class BooksController < ApplicationController
       @book.original_poster = current_user.id
       @book.save
       @author.new_book #ups author book count
-      UserBook.find_or_create_by(user_id: current_user,book_id: @book)
+      UserBook.find_or_create_by(user_id: current_user.id,book_id: @book.id)
       redirect to '/show'
     else
       redirect to '/login'
@@ -43,7 +43,6 @@ class BooksController < ApplicationController
     if logged_in?
       @book = Book.find_by(id: params[:id])
       UserBook.find_or_create_by(user_id: current_user.id, book_id: params[:id])
-      binding.pry
       redirect to '/show'
     else
       redirect to '/login'
