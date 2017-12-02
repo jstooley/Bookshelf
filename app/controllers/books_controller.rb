@@ -31,8 +31,8 @@ class BooksController < ApplicationController
       @book.genre = @genre
       @book.original_poster = current_user.id
       @book.save
-      @author.new_book
-      UserBook.find_or_create_by(user_id: session['user_id'],book_id: @book.id)
+      @author.new_book #ups author book count
+      UserBook.find_or_create_by(user_id: current_user,book_id: @book.id)
       redirect to '/show'
     else
       redirect to '/login'
@@ -54,8 +54,9 @@ class BooksController < ApplicationController
       @book = Book.find_by(id: params['id'])
       @book.title = params['title']
       @book.year_published = params['year_published']
-      @arthor_org = Author.find_by(id: @book.author_id)
+      @arthor_org = @book.author
       @arthor_new = Author.find_or_create_by(name: params['author'])
+
       unless @arthor_org == @arthor_new #check to see if changed arthor
         @arthor_org.published_work -= 1
         @arthor_org.save
@@ -65,15 +66,19 @@ class BooksController < ApplicationController
           @arthir_org.delete
         end
       end
-      @genre_org = Genre.find_by(id: @book.genre_id)
+
+      @genre_org = @book.genre
       @genre_new = Genre.find_or_create_by(name: params['genre'])
       unless @genre_org == @genre_new #check if genre changed
         @book.genre = @genre_new
       end
+
       @book.save
-      if Book.find_by(genre_id: @genre_org.id) == nil #checks books to see if any have old genre if not deltes them
+
+      if !!Book.find_by(genre_id: @genre_org.id) #checks books to see if any have old genre if not deltes them
         @genre_org.delete
       end
+      
       redirect to '/show'
     else
       redirect to '/login'
