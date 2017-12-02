@@ -72,7 +72,7 @@ class BooksController < ApplicationController
 
   delete '/books/:id/remove' do
     if logged_in?
-      UserBook.find_by(id: params[:id]).delete # if not op just take off list
+      UserBook.find_by(book_id: params[:id],user_id: current_user.id).delete # if not op just take off list
       redirect to '/show'
     else
       redirect to '/login'
@@ -100,7 +100,7 @@ class BooksController < ApplicationController
         if @author.published_work == 0 # authors only book?
           @author.delete # if so delete
         end
-
+        binding.pry
         redirect to '/show'
       else
         redirect to '/login'
