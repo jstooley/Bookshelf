@@ -32,7 +32,7 @@ class BooksController < ApplicationController
       @book.original_poster = current_user.id
       @book.save
       @author.new_book #ups author book count
-      UserBook.find_or_create_by(user_id: current_user,book_id: @book.id)
+      UserBook.find_or_create_by(user_id: current_user,book_id: @book)
       redirect to '/show'
     else
       redirect to '/login'
@@ -84,11 +84,7 @@ class BooksController < ApplicationController
       @book = Book.find_by(id: @user_books.book_id)
       @genre_count = 0# to see how many books have this genre
 
-      UserBook.all.each do |user_book| #delete book off all list
-        if user_book.book_id == @book.id
-          user_book.delete
-        end
-      end
+      UserBook.delete_all(@book) #delete book off all lists
 
       @genre_id = @book.genre.id #to have genre_id after book is deleted
       @author_id = @book.author.id #to have genre_id after book is deleted
@@ -114,8 +110,6 @@ end
 # Todos
 
 # 1. check for an authenticated user on all routes that reuqire an authenticated user not just 'GET' routes
-# 2. Add the DELETE /books/:id/remove route with logic to remove a book from a user's book collection
-# 3. Clean up the DELETE /books/:id route to only handle deletion for verified user
 # 4. Implement the option to Add or Remove books (and delete edit for original posters) for your collection from the author books and genre books index pages
 # 5. User the current_user instance method for your controllers and views.
 # 6. Make a pull request with the changes on a seperate github branch and @lukeghenco when submitting pull request. Do not merge into master branch until review is completed by Luke
