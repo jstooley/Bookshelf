@@ -54,18 +54,10 @@ class BooksController < ApplicationController
       @book = Book.find_by(id: params['id'])
       @book.title = params['title']
       @book.year_published = params['year_published']
-      @arthor_org = @book.author
-      @arthor_new = Author.find_or_create_by(name: params['author'])
+      @author_org = @book.author
+      @author_new = Author.find_or_create_by(name: params['author'])
 
-      unless @arthor_org == @arthor_new #check to see if changed arthor
-        @arthor_org.published_work -= 1
-        @arthor_org.save
-        @arthor_new.new_book
-        @book.author = @arthor_new
-        if @arthor_org.published_work == 0 #delete author if no longer has book
-          @arthir_org.delete
-        end
-      end
+      @book.author_edit(@author_org,@author_new) #checks/sets if author is changed
 
       @genre_org = @book.genre
       @genre_new = Genre.find_or_create_by(name: params['genre'])
@@ -78,7 +70,7 @@ class BooksController < ApplicationController
       if !!Book.find_by(genre_id: @genre_org.id) #checks books to see if any have old genre if not deltes them
         @genre_org.delete
       end
-      
+
       redirect to '/show'
     else
       redirect to '/login'
