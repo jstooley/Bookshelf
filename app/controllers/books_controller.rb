@@ -41,8 +41,9 @@ class BooksController < ApplicationController
 
   post '/books/:id/add' do
     if logged_in?
-      @book = Book.find_by(id: params['id'])
-      UserBook.find_or_create_by(user_id: current_user, book_id: params['id'])
+      @book = Book.find_by(id: params[:id])
+      UserBook.find_or_create_by(user_id: current_user.id, book_id: params[:id])
+      binding.pry
       redirect to '/show'
     else
       redirect to '/login'
@@ -73,6 +74,7 @@ class BooksController < ApplicationController
   delete '/books/:id/remove' do
     if logged_in?
       UserBook.find_by(id: params[:id]).delete # if not op just take off list
+      redirect to '/show'
     else
       redirect to '/login'
     end
