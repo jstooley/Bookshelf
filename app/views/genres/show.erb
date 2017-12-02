@@ -4,10 +4,24 @@
   <p>Publication Date:<%= book.year_published %></p>
   <p>Author: <%= book.author.name %></p>
 
-  <% if !book.users.include?(current_user)%>
-    <form method='POST' action='/books/<%=book.id%>/add'>
+  <% if book.users.include?(current_user) %>
+    <form method="POST" action="/books/<%= book.id %>/remove">
+      <p>Remove this book From your colection?</p>
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value='Remove'>
+    </form>
+  <% elsif logged_in? %>
+    <form method='POST' action='/books/<%= book.id %>/add'>
       <p>Add this book to your colection?</p>
-      <input type=submit value='Add'>
+      <input type="submit" value='Add'>
+    </form>
+  <% end %>
+
+  <% if book.original_poster == current_user %>
+    <a href = 'books/<%=book.id%>/edit'>Edit Book</a>
+    <form method='POST' action ='books/<%=book.id%>'>
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value='Delete'>
     </form>
   <% end %>
 <% end %>
