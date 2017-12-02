@@ -22,7 +22,7 @@ class Book < ActiveRecord::Base
       self.genre = genre_new
       self.save
       if !Book.find_by(genre_id: genre_org.id) #checks books to see if any have old genre if not deltes them
-        @genre_org.delete
+        genre_org.delete
       end
     end
   end
