@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
   get '/show' do
     if logged_in?
-      @user = User.find_by(id: session[:user_id])
+      @user = User.find_by(id: current_user)
       erb:'users/show'
     else
       redirect to '/login'
