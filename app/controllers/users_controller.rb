@@ -33,6 +33,8 @@ class UsersController < ApplicationController
   get '/show' do
     if logged_in?
       @user = User.find_by(id: current_user)
+      @books = Book.all
+      @user_books = GenreBook.all
       erb:'users/show'
     else
       redirect to '/login'

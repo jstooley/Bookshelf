@@ -1,13 +1,11 @@
 <h1><%=@user.username%>'s Books</h1>
-<%Book.all.each do |book|%>
-  <%UserBook.all.each do |user_books|%>
-    <%if user_books.book_id == book.id && user_books.user_id == @user.id%>
-      <h3>Title: <%=book.title%></h3>
-      <p>Publication Date:<%=book.year_published%></p>
-      <p>Author: <%=Author.find_by(id: book.author_id).name%></p>
-      <p>Genre: <%=Genre.find_by(id: book.genre_id).name%></p>
+<%@books.each do |book|%>
+  <%@user_books.each do |user_books|%>
+    <%if user_books.book == book && user_books.user == @user%>
+      <h3>Title: <%= book.title %></h3>
+      <p>Publication Date:<%= book.year_published %></p>
+      <p>Author: <%= book.author.name %></p>
+      <p>Genre: <%= book.genre.name %></p>
       <%end%>
   <%end%>
 <%end%>
-
-<h3></h3>
