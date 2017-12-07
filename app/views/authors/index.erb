@@ -1,6 +1,6 @@
 <h1>Author List</h1>
 <%@authors.each do |author|%>
-  <%if @authors.published_work > 0%>
+  <%if author.published_work > 0%>
     <h4>Name: <%=author.name%></h4>
     <p><a href = '/authors/<%=author.id%>'>Number of works: <%=author.published_work%></a></p>
   <%end%>
