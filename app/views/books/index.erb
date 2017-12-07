@@ -20,7 +20,7 @@
   <% end %>
 
   <% if book.original_poster == current_user.id %>
-  <p>Edit this book?</p>
+    <p>Edit this book?</p>
     <a href = 'books/<%=book.id%>/edit'>Edit Book</a>
     <p>Delete this book to your colection?</p>
     <form method='POST' action ='books/<%=book.id%>'>
