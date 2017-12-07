@@ -1,4 +1,6 @@
 <h1>Genres List</h1>
 <%@genre.each do |genre|%>
-  <a href ='/genres/<%=genre.id%>'><%=genre.name%></a><br></br>
+  <%if genre.books.count > 0%>
+    <a href ='/genres/<%=genre.id%>'><%=genre.name%></a><br></br>
+  <%end%>
 <%end%>
