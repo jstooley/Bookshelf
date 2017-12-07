@@ -22,13 +22,19 @@ class UsersController < ApplicationController
   end
 
   get '/logout' do
+    if logged_in?
       session.clear
       redirect to '/'
+    else
+      redirect to '/login'
+    end
   end
 
   get '/show' do
     if logged_in?
-      @user = User.find_by(id: session[:user_id])
+      @user = User.find_by(id: current_user)
+      @books = Book.all
+      @user_books = UserBook.all
       erb:'users/show'
     else
       redirect to '/login'

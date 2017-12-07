@@ -10,4 +10,6 @@ class Author < ActiveRecord::Base
     end
     self.save
   end
+
+
 end
