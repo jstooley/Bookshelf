@@ -29,26 +29,9 @@ class Book < ActiveRecord::Base
 
   def destroy_with_relationships
     self.user_books.destroy_all
+    self.author.published_work = self.author.books.count - 1
     self.destroy
-    @user_book = UserBook.find_by(book_id: params[:id],user_id: current_user.id)
-    @book = Book.find_by(id: @user_books.book_id)
-    @genre_count = 0# to see how many books have this genre
-
-    UserBook.delete_all(@book) #delete book off all lists
-
-    @genre_id = @book.genre.id #to have genre_id after book is deleted
-    @author_id = @book.author.id #to have genre_id after book is deleted
-    @book.delete # delete the book op is removing
-
-    if !Book.all.include?(@genre_id)  # counts how many books have the genre of soon to be deleted book
-      Genre.find_by(id: @genre_id).delete #delete genre if the deleted book is the obnly one with it
-    end
-
-      @author = Author.find_by(id: @author_id)
-      @author.published_work -= 1
-      if @author.published_work == 0 # authors only book?
-        @author.delete # if so delete
-      end
+    self.author.save
   end
 
 end
